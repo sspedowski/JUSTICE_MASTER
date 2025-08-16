@@ -11,7 +11,7 @@ MASTER_COLS = [
 ]
 
 HEAD_RX = re.compile(r"^(?:Top\s*\d+\s*[-:])?\s*(?:Item|Doc|File)?\s*#?\s*(\d{1,2})\b", re.I)
-KEYVAL_RX = re.compile(r"^(filename|category|children|dates?|summary|misconduct|law|page|paragraph|violation|status)\s*[:\-]\s*(.+)$", re.I)
+KEYVAL_RX = re.compile(r"^(filename|file|category|children|date|dates|summary|misconduct|law|page|paragraph|violation|status)\s*[:\-]\s*(.+)$", re.I)
 
 FIELDS = {
     "filename":"Filename",
@@ -32,17 +32,39 @@ FIELDS = {
 def doc_to_blocks(path:str):
     d = Document(path)
     cur = {"n":None, "lines":[]}
+    auto_n = 0
     for p in d.paragraphs:
         t = (p.text or "").strip()
-        if not t: continue
+        if not t:
+            # blank line: treat as record separator if we have collected lines
+            if cur["lines"]:
+                if cur["n"] is None:
+                    auto_n += 1
+                    cur["n"] = auto_n
+                yield cur
+                cur = {"n":None, "lines":[]}
+            continue
         m = HEAD_RX.match(t)
         if m:
             if cur["n"] is not None and cur["lines"]:
                 yield cur
             cur = {"n": int(m.group(1)), "lines": []}
-        else:
-            cur["lines"].append(t)
-    if cur["n"] is not None and cur["lines"]:
+            continue
+        # fallback: if a line starts with 'Filename:' and current block already has lines,
+        # assume it's a start of a new record
+        kv = KEYVAL_RX.match(t)
+        if kv and kv.group(1).lower() in ("filename", "file") and cur["lines"]:
+            if cur["n"] is None:
+                auto_n += 1
+                cur["n"] = auto_n
+            yield cur
+            cur = {"n":None, "lines": [t]}
+            continue
+        cur["lines"].append(t)
+    if cur["lines"]:
+        if cur["n"] is None:
+            auto_n += 1
+            cur["n"] = auto_n
         yield cur
 
 

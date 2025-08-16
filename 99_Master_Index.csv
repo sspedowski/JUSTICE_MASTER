@@ -1,11 +1,15 @@
-﻿"Batch #","Filename","Category","Children (Jace/Josh/Other)","Dates / Case #","Summary","Misconduct? (Yes/No)","Law Violated (if any)","Page / Paragraph","Description of Violation","Status (Include/Remove)","Notes"
-"03","placeholder_filename_01.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_02.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_03.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_04.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_05.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_06.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_07.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_08.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_09.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_10.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
+Batch #,Filename,Category,Children (Jace/Josh/Other),Dates / Case #,Summary,Misconduct? (Yes/No),Law Violated (if any),Page / Paragraph,Description of Violation,Status (✅ Include / ❌ Remove),Notes
+03,placeholder_filename_01.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_02.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_03.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_04.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_05.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_06.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_07.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_08.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_09.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_10.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,,,"Jace, Josh",,Top 10 Item,,,,,,Imported DOCX Justice_Master_Top10_AllPhases_EDITABLE.docx 2025-08-16 16:35
+03,doc1.pdf,,"Jace, Josh",,Short summary for doc1.,,,,,✅ Include,Imported DOCX Justice_Master_Top10_AllPhases_EDITABLE.docx 2025-08-16 16:35
+03,,,"Jace, Josh",,Top 10 Item,,,,,,Imported DOCX MASTER TOP 10 FILES GPT5 STYLE CHAT.docx 2025-08-16 16:35
+03,doc2.pdf,,"Jace, Josh",,Short summary for doc2.,,,,,✅ Include,Imported DOCX MASTER TOP 10 FILES GPT5 STYLE CHAT.docx 2025-08-16 16:35
