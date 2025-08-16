@@ -1,21 +1,21 @@
-"Batch #","Filename","Category","Children (Jace/Josh/Other)","Dates / Case #","Summary","Misconduct? (Yes/No)","Law Violated (if any)","Page / Paragraph","Description of Violation","Status (? Include / ? Remove)","Notes"
-"03","placeholder_filename_01.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_02.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_03.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_04.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_05.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_06.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_07.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_08.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_09.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","placeholder_filename_10.pdf","","Other","","Short summary here","No","","","","","PLACEHOLDER_BATCH_03"
-"03","2020-05.23- CPS Investigation Report.pdf","","Jace, Josh","","CPS Inaction After Anal Trauma + Disclosure","Yes","","","Mandated Protection Breakdown",,"Exhibit: A"
-"03","NCMEC CyberTipline Report 74880282 7.18.20.pdf","","Jace, Josh","","Dismissal of NCMEC CyberTipline Report","Yes","","","Federal & Local Investigative Failure",,"Exhibit: A"
-"03","Independent Review of Marsh CPS.pdf","","Jace, Josh","","Suppression of DNA and Nurse Examiner Findings","Yes","","","Evidence Suppression",,"Exhibit: B"
-"03","Jace 6_26_20 URGENT CARE PANIC ATTACK.pdf","","Jace, Josh","","CPS Nonresponse to Audio-Recorded Sexual Abuse Disclosure","Yes","","","Retaliatory Neglect & Emotional Collapse",,"Exhibit: B"
-"03","CTAC Trauma Assessment - Jace.pdf","","Jace, Josh","","Repetition of Sexual Abuse Despite Therapy Disclosures","Yes","","","Sustained Institutional Exposure",,"Exhibit: B"
-"03","2020-12.14 - Complaint Marsh - 20-2622FY-1pp.pdf","","Jace, Josh","","Criminalizing the Protective Parent","Yes","","","Retaliatory Prosecution",,"Exhibit: A"
-"03","12.26.24 ltr to court filing 7 day order.pdf","","Jace, Josh","","Custody Court Ignoring Protective Reports","Yes","","","Procedural Misconduct",,"Exhibit: Court"
-"03","People involved in care 09.22.pdf","","Jace, Josh","","Full Medical Access Blocked to Mother","Yes","","","Custody Gatekeeping",,"Exhibit: Custody Interference"
-"03","9.4.19 WAYLAND Josh police report.pdf","","Jace, Josh","","Dismissal of Physical Abuse Despite Photos and Disclosure","Yes","","","Law Enforcement Inaction",,"Exhibit: C"
-"03","CMH Report - Joshua Marsh.pdf","","Jace, Josh","","Five Investigations, No CPS Action","Yes","","","Chronic Negligence",,"Exhibit: B"
+Batch #,Filename,Category,Children (Jace/Josh/Other),Dates / Case #,Summary,Misconduct? (Yes/No),Law Violated (if any),Page / Paragraph,Description of Violation,Status (? Include / ? Remove),Notes
+03,placeholder_filename_01.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_02.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_03.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_04.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_05.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_06.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_07.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_08.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_09.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,placeholder_filename_10.pdf,,Other,,Short summary here,No,,,,,PLACEHOLDER_BATCH_03
+03,2020-05.23- CPS Investigation Report.pdf,,"Jace, Josh",,CPS Inaction After Anal Trauma + Disclosure,Yes,,,Mandated Protection Breakdown,,Exhibit: A
+03,NCMEC CyberTipline Report 74880282 7.18.20.pdf,,"Jace, Josh",,Dismissal of NCMEC CyberTipline Report,Yes,,,Federal & Local Investigative Failure,,Exhibit: A
+03,Independent Review of Marsh CPS.pdf,,"Jace, Josh",,Suppression of DNA and Nurse Examiner Findings,Yes,,,Evidence Suppression,,Exhibit: B
+03,Jace 6_26_20 URGENT CARE PANIC ATTACK.pdf,,"Jace, Josh",,CPS Nonresponse to Audio-Recorded Sexual Abuse Disclosure,Yes,,,Retaliatory Neglect & Emotional Collapse,,Exhibit: B
+03,CTAC Trauma Assessment - Jace.pdf,,"Jace, Josh",,Repetition of Sexual Abuse Despite Therapy Disclosures,Yes,,,Sustained Institutional Exposure,,Exhibit: B
+03,2020-12.14 - Complaint Marsh - 20-2622FY-1pp.pdf,,"Jace, Josh",,Criminalizing the Protective Parent,Yes,,,Retaliatory Prosecution,,Exhibit: A
+03,12.26.24 ltr to court filing 7 day order.pdf,,"Jace, Josh",,Custody Court Ignoring Protective Reports,Yes,,,Procedural Misconduct,,Exhibit: Court
+03,People involved in care 09.22.pdf,,"Jace, Josh",,Full Medical Access Blocked to Mother,Yes,,,Custody Gatekeeping,,Exhibit: Custody Interference
+03,9.4.19 WAYLAND Josh police report.pdf,,"Jace, Josh",,Dismissal of Physical Abuse Despite Photos and Disclosure,Yes,,,Law Enforcement Inaction,,Exhibit: C
+03,CMH Report - Joshua Marsh.pdf,,"Jace, Josh",,"Five Investigations, No CPS Action",Yes,,,Chronic Negligence,,Exhibit: B
