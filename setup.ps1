@@ -90,6 +90,37 @@ catch {
     Write-Host "Error managing .gitattributes: $_" -ForegroundColor Red
     exit 1
 }
+
+# Ensure common binary patterns are tracked by Git LFS (idempotent)
+$lfsPatterns = @(
+    "*.pdf",
+    "*.docx",
+    "*.xlsx",
+    "*.pptx",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.tif",
+    "*.tiff",
+    "*.heic",
+    "*.zip",
+    "*.7z"
+)
+try {
+    $currentTracked = @()
+    $lfsList = git lfs track --list 2>$null
+    if ($lfsList) { $currentTracked = $lfsList -split "`n" | ForEach-Object { $_.Trim() } }
+    foreach ($p in $lfsPatterns) {
+        if (-not ($currentTracked -contains $p)) {
+            # git lfs track will update .gitattributes automatically; it's safe to run multiple times
+            git lfs track $p 2>$null | Out-Null
+            Write-Host "git lfs track $p" -ForegroundColor DarkCyan
+        }
+    }
+}
+catch {
+    Write-Host "Warning: failed to run 'git lfs track' for some patterns: $_" -ForegroundColor Yellow
+}
 # Create .gitignore file with improved patterns
 $gitignoreContent = @"
 # OS generated files
@@ -183,3 +214,21 @@ catch {
 Write-Host "`nRepository setup complete!" -ForegroundColor Green
 Write-Host "Git LFS is tracking: *.pdf, *.docx, *.xlsx, *.pptx" -ForegroundColor Cyan
 Write-Host "Text files are configured with LF line endings" -ForegroundColor Cyan
+
+# Final reporting: list tracked LFS patterns and file statuses
+try {
+    $tracked = git lfs track --list 2>$null
+    if ($tracked) {
+        Write-Host "\nGit LFS tracked patterns:" -ForegroundColor Cyan
+        $tracked -split "`n" | ForEach-Object { Write-Host " - $_" }
+    } else {
+        Write-Host "\nNo Git LFS patterns found (unexpected)." -ForegroundColor Yellow
+    }
+}
+catch {
+    Write-Host "\nUnable to query git lfs track list: $_" -ForegroundColor Yellow
+}
+
+Write-Host "\nFiles present:" -ForegroundColor Cyan
+Get-ChildItem -Path . -Filter .gitattributes -Force -ErrorAction SilentlyContinue | ForEach-Object { Write-Host " - .gitattributes exists" }
+Get-ChildItem -Path . -Filter .gitignore -Force -ErrorAction SilentlyContinue | ForEach-Object { Write-Host " - .gitignore exists" }
