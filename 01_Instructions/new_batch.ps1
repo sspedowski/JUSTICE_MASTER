@@ -4,53 +4,49 @@ Scaffolds a new Batch_## folder under 02_Batches with template files.
 Usage: .\new_batch.ps1 -Number 3
 #>
 param(
-    [Parameter(Mandatory=$true)]
-    [int]$Number
+    [int]$Number,
+    [switch]$Force,
+    [switch]$Open
 )
 
-$batchName = "Batch_{0:D2}" -f $Number
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
-$batchesDir = Join-Path $root "..\02_Batches" | Resolve-Path -Relative
-$batchPath = Join-Path $batchesDir $batchName
+$batchRoot = Join-Path $root '..\02_Batches'
+New-Item -ItemType Directory -Force -Path $batchRoot | Out-Null
 
-if (Test-Path $batchPath) {
-    Write-Host "Batch folder already exists: $batchPath" -ForegroundColor Yellow
-    exit 1
+if (-not $PSBoundParameters.ContainsKey('Number')) {
+    $existing = Get-ChildItem -Path $batchRoot -Directory -Filter 'Batch_*' -ErrorAction SilentlyContinue |
+        ForEach-Object { if ($_.Name -match 'Batch_(\d{1,})') { [int]$Matches[1] } } |
+        Sort-Object -Descending
+    $Number = if ($existing) { $existing[0] + 1 } else { 1 }
 }
 
-New-Item -ItemType Directory -Path $batchPath -Force | Out-Null
+$batchName = ('Batch_{0:D2}' -f $Number)
+$target = Join-Path $batchRoot $batchName
 
-# Create README template
-$readmePath = Join-Path $batchPath "README.md"
-$readmeContent = @"
-# $batchName
+if (Test-Path $target) {
+    if (-not $Force) {
+        Write-Host "Target $batchName already exists. Use -Force to update the folder." -ForegroundColor Yellow
+        exit 1
+    } else {
+        Write-Host "Updating existing $batchName (non-destructive)." -ForegroundColor Cyan
+    }
+}
 
-## Original Documents
+New-Item -ItemType Directory -Force -Path $target | Out-Null
 
-1. 
-2. 
-3. 
-4. 
-5. 
-6. 
-7. 
-8. 
-9. 
-10. 
+$stamp = Get-Date -Format "yyyy-MM-dd HH:mm"
+$placeholders = @(
+    "README.md",
+    ("Batch_{0}_Summary.md" -f ('{0:D2}' -f $Number)),
+    ("Batch_{0}_Misconduct_Tables.md" -f ('{0:D2}' -f $Number))
+)
+foreach ($f in $placeholders) {
+    $p = Join-Path $target $f
+    if (-not (Test-Path $p)) {
+        "Place the 10 originals here. Generated summaries/tables live in this folder.  // created $stamp" |
+            Out-File -Encoding UTF8 $p
+    }
+}
 
-## Generated Files
-
-- ${batchName}_Summary.md
-- ${batchName}_Misconduct_Tables.md
-- MasterFile_${batchName}.pdf (✅ items only)
-
-This folder is part of the Justice_Master monorepo. See root README for process and usage.
-"@
-
-Set-Content -Path $readmePath -Value $readmeContent -Encoding UTF8
-
-# Create template summary and misconduct files
-Set-Content -Path (Join-Path $batchPath "${batchName}_Summary.md") -Value "# ${batchName} Summary\n\n" -Encoding UTF8
-Set-Content -Path (Join-Path $batchPath "${batchName}_Misconduct_Tables.md") -Value "# ${batchName} Misconduct Tables\n\n" -Encoding UTF8
-
-Write-Host "Created $batchPath with templates." -ForegroundColor Green
+Write-Host "Ready: $batchName at $target" -ForegroundColor Green
+if ($Open) { Invoke-Item $target }
