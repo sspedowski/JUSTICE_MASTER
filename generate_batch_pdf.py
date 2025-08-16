@@ -16,7 +16,34 @@ def build_pdf(master_csv, batch, out_pdf):
     df = pd.read_csv(master_csv, dtype=str).fillna("")
     # filter ✅ rows for the given batch
     df = df[df['Batch #'] == f"{int(batch):02d}"]
-    df = df[df['Status (✅ Include / ❌ Remove)'].str.contains('✅') | df['Status (✅ Include / ❌ Remove)'].str.contains('Include') | df['Status (✅ Include / ❌ Remove)'].isnull()]
+    # tolerate multiple possible status column names (different encodings / edits)
+    def _find_status_col(columns):
+        candidates = [
+            'Status (✅ Include / ❌ Remove)',
+            'Status ( ✅ Include / ❌ Remove)',
+            'Status ( ? Include / ? Remove)',
+            'Status (? Include / ? Remove)',
+            'Status (Include / Remove)',
+            'Status',
+            'status'
+        ]
+        for c in candidates:
+            if c in columns:
+                return c
+        # fallback: any column containing the word 'status'
+        for c in columns:
+            if 'status' in c.lower():
+                return c
+        return None
+
+    status_col = _find_status_col(df.columns)
+    if status_col:
+        s = df[status_col].astype(str)
+        mask = s.str.contains('✅') | s.str.contains('Include', case=False) | (s == '')
+        df = df[mask]
+    else:
+        # no status column found; default to include all rows for this batch
+        pass
 
     c = canvas.Canvas(out_pdf, pagesize=letter)
     width, height = letter
