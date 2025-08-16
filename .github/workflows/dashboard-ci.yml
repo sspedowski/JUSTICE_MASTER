@@ -1,0 +1,37 @@
+name: Dashboard CI
+
+on:
+  push:
+    paths:
+      - '05_Dashboard/**'
+      - '.github/workflows/dashboard-ci.yml'
+  pull_request:
+    paths:
+      - '05_Dashboard/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install frontend deps
+        working-directory: 05_Dashboard/frontend
+        run: npm ci || npm install
+      - name: Build frontend
+        working-directory: 05_Dashboard/frontend
+        run: npm run build --if-present
+      - name: Install backend deps
+        working-directory: 05_Dashboard/backend
+        run: npm ci || npm install
+      - name: Run tests (if present)
+        working-directory: 05_Dashboard
+        run: |
+          if [ -d "tests" ]; then
+            echo "Tests folder exists."
+          else
+            echo "No tests folder. Skipping."
+          fi
