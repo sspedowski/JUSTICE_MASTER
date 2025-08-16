@@ -1,4 +1,4 @@
-Top‑10 Ingest & PDF Pipeline (Excel‑Free) — v2 QuickStart
+# Top‑10 Ingest & PDF Pipeline (Excel‑Free) — v2 QuickStart
 
 Purpose. Take your Top‑10 source files (DOCX preferred, XLSX if available), normalize them into the locked master columns in `99_Master_Index.csv`, and auto‑build `02_Batches/Batch_03/MasterFile_Batch_03.pdf` (✅ rows only). No Excel dependency inside the repo.
 
@@ -34,9 +34,9 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 What it does:
 
 1. Creates/activates `.venv`, installs `pandas openpyxl python-docx reportlab`.
-2. If `Top_10_Failures_Marsh_Case_Summary.xlsx` exists → imports it; otherwise parses the two DOCX.
-3. Appends normalized rows to `99_Master_Index.csv` (keeps your header intact).
-4. Builds `02_Batches/Batch_03/MasterFile_Batch_03.pdf` from rows with **Status** set to `✅ Include`.
+1. If `Top_10_Failures_Marsh_Case_Summary.xlsx` exists → imports it; otherwise parses the two DOCX.
+1. Appends normalized rows to `99_Master_Index.csv` (keeps your header intact).
+1. Builds `02_Batches/Batch_03/MasterFile_Batch_03.pdf` from rows with **Status** set to `✅ Include`.
 
 Re‑runnable: You can run the wrapper again; it will append/merge and rebuild the PDF. Review the CSV before committing if you re‑ingest the same sources.
 
