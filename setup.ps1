@@ -18,6 +18,26 @@ if (-not (Test-CommandExists 'git')) {
     Write-Host "Git is not installed. Please install Git first." -ForegroundColor Red
     exit 1
 }
+# setup.ps1
+# Initializes Git LFS and creates necessary Git configuration files for Justice_Master
+# Enable strict mode and error handling
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+function Test-CommandExists {
+    param($command)
+    $oldPreference = $ErrorActionPreference
+    $ErrorActionPreference = 'stop'
+    try {
+        if (Get-Command $command) { return $true }
+    }
+    catch { return $false }
+    finally { $ErrorActionPreference = $oldPreference }
+}
+# Verify Git is installed
+if (-not (Test-CommandExists 'git')) {
+    Write-Host "Git is not installed. Please install Git first." -ForegroundColor Red
+    exit 1
+}
 # Check if Git LFS is installed
 if (-not (Test-CommandExists 'git-lfs')) {
     Write-Host "Git LFS is not installed. Please install it first." -ForegroundColor Red
@@ -72,6 +92,9 @@ catch {
 }
 # Create .gitignore file with improved patterns
 $gitignoreContent = @"
+# OS generated files
+.DS_Store*
+@"
 # OS generated files
 .DS_Store*
 ._*
