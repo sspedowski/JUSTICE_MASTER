@@ -1,6 +1,6 @@
 # Justice_Master
 
-[![CI](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml/badge.svg)](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml)
+[![CI](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml/badge.svg)](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/sspedowski/JUSTICE_MASTER?label=latest%20release)](https://github.com/sspedowski/JUSTICE_MASTER/releases/latest)
 
 This is the single source of truth for Stephanie's Justice project (Jace & Josh).
 
@@ -97,6 +97,10 @@ git commit -m "chore: enable Git LFS"
 
 ## Contact
 For project-related questions or concerns, refer to the contact information in `06_Distribution/`.
+
+## Changelog
+
+- 2025-08-16 — v0.1.0-batch03: Added Batch 03 pipeline, tests, and artifact (see Downloads).
 
 ## 📦 Downloads
 
