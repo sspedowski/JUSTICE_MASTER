@@ -2,10 +2,15 @@
 
 Purpose. Take your Top‑10 source files (DOCX preferred, XLSX if available), normalize them into the locked master columns in `99_Master_Index.csv`, and auto‑build `02_Batches/Batch_03/MasterFile_Batch_03.pdf` (✅ rows only). No Excel dependency inside the repo.
 
----
 
 What you get
 
+* “No ✅ Include rows for Batch 03” → set the **Status** column to `✅ Include` for any
+  documents you want included in the generated PDF.
+* “No records parsed” (DOCX) → ensure each Top‑10 item has simple key/value lines like
+  `Filename:`, `Summary:`, and `Status:`; free text is still appended to **Summary**.
+* Duplicates in CSV → remove duplicates by editing the CSV or import only once per
+  source; scripts are append‑only by design.
 * DOCX → CSV extractor (fallback that works even when Excel isn’t accepted).
 * XLSX → CSV importer (used automatically if the sheet exists).
 * PDF generator from the master index.
@@ -81,8 +86,7 @@ Locked master columns (header)
 
 Use this exact header in CSV/XLSX:
 
-Batch #,Filename,Category,Children (Jace/Josh/Other),Dates / Case #,Summary,Misconduct? (Yes/No),Law Violated (if any),Page / Paragraph,Description of Violation,Status (✅ Include / ❌ Remove),Notes
-```
+```csv
 Batch #,Filename,Category,Children (Jace/Josh/Other),Dates / Case #,Summary,Misconduct? (Yes/No),Law Violated (if any),Page / Paragraph,Description of Violation,Status (✅ Include / ❌ Remove),Notes
 ```
 
