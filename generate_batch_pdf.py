@@ -14,7 +14,9 @@ MASTER_COLS = [
 
 def build_pdf(master_csv, batch, out_pdf):
     df = pd.read_csv(master_csv, dtype=str).fillna("")
-    # filter ✅ rows for the given batch
+    # normalize column names
+    df.columns = [c.strip() for c in df.columns]
+    # filter rows for the given batch (zero-padded two-digit batch numbers expected)
     df = df[df['Batch #'] == f"{int(batch):02d}"]
     # tolerate multiple possible status column names (different encodings / edits)
     def _find_status_col(columns):
@@ -39,10 +41,13 @@ def build_pdf(master_csv, batch, out_pdf):
     status_col = _find_status_col(df.columns)
     if status_col:
         s = df[status_col].astype(str)
-        mask = s.str.contains('✅') | s.str.contains('Include', case=False) | (s == '')
+        # include rows explicitly marked with a check or containing the word 'include'
+        mask = s.str.contains('✅') | s.str.contains('Include', case=False)
+        # treat empty cells as 'include' conservatively
+        mask = mask | (s.str.strip() == '')
         df = df[mask]
     else:
-        # no status column found; default to include all rows for this batch
+        # no status column found; keep all rows for this batch (safe default)
         pass
 
     c = canvas.Canvas(out_pdf, pagesize=letter)
