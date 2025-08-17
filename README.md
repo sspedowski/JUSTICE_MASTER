@@ -64,11 +64,8 @@ git commit -m "chore: enable Git LFS"
 
 1. Create new batch folder in `02_Batches/Batch_##/`
 1. Add original documents to batch folder
-1. For each document:
-
-  - Create summary (MD/HTML format)
-  - Complete misconduct analysis table
-  - Generate processed output files
+1. For each document: create a summary (MD/HTML), complete the misconduct
+  analysis table, and generate processed output files.
 
 1. Update `99_Master_Index.xlsx` with new entries
 
@@ -114,12 +111,11 @@ For project-related questions or concerns, refer to the contact information in `
 
 ## Changelog
 
-- 2025-08-16 — v0.1.0-batch03: Added Batch 03 pipeline, tests, and artifact (see Downloads).
+-- 2025-08-16 — v0.1.0-batch03: Added Batch 03 pipeline and tests.
+  (See Downloads for artifact details.)
 
 ## 📦 Downloads
 
 - **Batch 03 Release** — [v0.1.0-batch03](https://github.com/sspedowski/JUSTICE_MASTER/releases/tag/v0.1.0-batch03)
-  - Asset: `MasterFile_Batch_03.pdf`
-  - SHA256:
-
-    `EB8EB43693BA80A36EB40240F1FCE41AE38EC35024B3CAE413AB9435E749A0B2`
+- Asset: `MasterFile_Batch_03.pdf`
+- SHA256: `EB8EB43693BA80A36EB40240F1FCE41AE38EC35024B3CAE413AB9435E749A0B2`
