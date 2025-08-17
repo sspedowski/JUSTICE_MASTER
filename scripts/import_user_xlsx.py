@@ -80,7 +80,7 @@ def main():
         new['Status (✅ Include / ❌ Remove)'] = '✅ Include'
         if exhibit:
             new['Notes'] = f"Exhibit: {exhibit}"
-        master_df = master_df.append(new, ignore_index=True)
+        master_df = pd.concat([master_df, pd.DataFrame([new])], ignore_index=True)
         added += 1
 
     master_df.to_csv(master_csv, index=False)

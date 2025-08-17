@@ -22,5 +22,5 @@ if __name__ == '__main__':
             doc.add_paragraph(f"{k} {v}")
         p = Path(path)
         p.parent.mkdir(parents=True, exist_ok=True)
-        doc.save(p)
+        doc.save(str(p))
     print('[OK] Sample DOCX files written')
