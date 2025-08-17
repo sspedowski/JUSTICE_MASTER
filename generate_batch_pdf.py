@@ -18,33 +18,40 @@ def build_pdf(master_csv, batch, out_pdf):
     df.columns = [c.strip() for c in df.columns]
     # filter rows for the given batch (zero-padded two-digit batch numbers expected)
     df = df[df['Batch #'] == f"{int(batch):02d}"]
-    # tolerate multiple possible status column names (different encodings / edits)
+    # Robust status-column detection and include/exclude logic.
+    # Normalizes header names (strip/lowers) and finds likely candidate columns.
     def _find_status_col(columns):
+        normalized = {c: c.strip() for c in columns}
         candidates = [
-            'Status (✅ Include / ❌ Remove)',
-            'Status ( ✅ Include / ❌ Remove)',
-            'Status ( ? Include / ? Remove)',
-            'Status (? Include / ? Remove)',
-            'Status (Include / Remove)',
-            'Status',
-            'status'
+            'status', 'include', 'action', 'include?','include/remove',
+            'include_remove', 'status (include / remove)'
         ]
-        for c in candidates:
-            if c in columns:
-                return c
-        # fallback: any column containing the word 'status'
+        # direct match first
         for c in columns:
-            if 'status' in c.lower():
+            if c.strip().lower() in candidates:
+                return c
+        # heuristic: any column containing keyword
+        for c in columns:
+            low = c.strip().lower()
+            if 'status' in low or 'include' in low or 'action' in low:
                 return c
         return None
 
     status_col = _find_status_col(df.columns)
     if status_col:
-        s = df[status_col].astype(str)
-        # include rows explicitly marked with a check or containing the word 'include'
-        mask = s.str.contains('✅') | s.str.contains('Include', case=False)
-        # treat empty cells as 'include' conservatively
-        mask = mask | (s.str.strip() == '')
+        s = df[status_col].astype(str).fillna("")
+        # Normalize values
+        normalized = s.str.strip().str.lower()
+        # Consider these as affirmative include values
+        include_positive = normalized.isin(['', 'include', 'yes', 'y', 'keep', 'keep?'])
+        # Consider checkmark or words containing include/keep/yes as include
+        include_positive = include_positive | s.str.contains('✅')
+        include_positive = include_positive | normalized.str.contains('include', na=False)
+        include_positive = include_positive | normalized.str.contains('keep', na=False)
+        include_positive = include_positive | normalized.str.contains('yes', na=False)
+        # Anything explicitly marked as remove/exclude/no should be excluded
+        exclude_flags = normalized.str.contains('remove|exclude|no|false', na=False)
+        mask = include_positive & (~exclude_flags)
         df = df[mask]
     else:
         # no status column found; keep all rows for this batch (safe default)
