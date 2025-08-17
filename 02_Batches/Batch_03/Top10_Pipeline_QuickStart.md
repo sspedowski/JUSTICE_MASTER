@@ -1,6 +1,8 @@
 # Top‑10 Ingest & PDF Pipeline (Excel‑Free) — v2 QuickStart
 
-Purpose. Take your Top‑10 source files (DOCX preferred, XLSX if available), normalize them into the locked master columns in `99_Master_Index.csv`, and auto‑build `02_Batches/Batch_03/MasterFile_Batch_03.pdf` (✅ rows only). No Excel dependency inside the repo.
+Purpose. Take your Top‑10 source files (DOCX preferred, XLSX if available). Normalize
+them into the locked master columns in `99_Master_Index.csv`, then auto‑build
+`02_Batches/Batch_03/MasterFile_Batch_03.pdf` (✅ rows only). No Excel dependency inside the repo.
 
 
 What you get
@@ -25,12 +27,9 @@ Assumptions
 ---
 
 One‑command run (recommended)
-
-From repo root (PowerShell):
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
-.\top10_pipeline.ps1 -Batch 03
+1. "No ✅ Include rows for Batch 03" — set the **Status** column to `✅ Include` for any documents you want included in the generated PDF.
+1. "No records parsed" (DOCX) — ensure each Top‑10 item has simple key/value lines like `Filename:`, `Summary:`, and `Status:`; free text is still appended to **Summary**.
+1. Duplicates in CSV — remove duplicates by editing the CSV or import only once per source; scripts are append‑only by design.
 ```
 
 What it does:

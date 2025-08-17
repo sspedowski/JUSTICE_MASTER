@@ -33,6 +33,7 @@ Notes on input formatting
 
 Troubleshooting
 
-- If you see "No source files found", confirm the XLSX exists at repo root or DOCX files under the Batch Top10 folder.
+- If you see "No source files found", confirm the XLSX exists at repo root or DOCX
+	files under the Batch Top10 folder.
 - If the PDF is empty, check that Batch 03 rows have `✅ Include` in the status column.
 - For parsing edge cases, open an issue and attach a minimal sample DOCX.
