@@ -1,6 +1,7 @@
 # Justice_Master
 
-[![CI](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml/badge.svg)](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/sspedowski/JUSTICE_MASTER?label=latest%20release)](https://github.com/sspedowski/JUSTICE_MASTER/releases/latest)
+[![CI](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml/badge.svg)](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/sspedowski/JUSTICE_MASTER?label=latest%20release)](https://github.com/sspedowski/JUSTICE_MASTER/releases/latest)
 
 [📄 Changelog](CHANGELOG.md) · [Latest Release](https://github.com/sspedowski/JUSTICE_MASTER/releases/latest)
 
@@ -62,42 +63,42 @@ git commit -m "chore: enable Git LFS"
 ### 1. Document Batch Processing
 
 1. Create new batch folder in `02_Batches/Batch_##/`
-2. Add original documents to batch folder
-3. For each document:
+1. Add original documents to batch folder
+1. For each document:
 
   - Create summary (MD/HTML format)
   - Complete misconduct analysis table
   - Generate processed output files
 
-4. Update `99_Master_Index.xlsx` with new entries
+1. Update `99_Master_Index.xlsx` with new entries
 
 ### 2. Analysis and Review
 
 1. Perform side-by-side comparison in `04_Analysis/SideBySide/`
-2. Update timeline entries in `04_Analysis/Timelines/`
-3. Add relevant whistleblower notes to `04_Analysis/Whistleblower/`
-4. Review and validate all analysis documents
+1. Update timeline entries in `04_Analysis/Timelines/`
+1. Add relevant whistleblower notes to `04_Analysis/Whistleblower/`
+1. Review and validate all analysis documents
 
 ### 3. Exhibit Preparation
 
 1. Sort processed documents by recipient
-2. Create exhibit bundles in `03_Exhibits/By_Recipient/`
-3. Generate necessary redactions or variations
-4. Prepare submission packages
+1. Create exhibit bundles in `03_Exhibits/By_Recipient/`
+1. Generate necessary redactions or variations
+1. Prepare submission packages
 
 ### 4. Distribution
 
 1. Select appropriate cover letter template from `06_Distribution/`
-2. Customize recipient-specific content
-3. Prepare final distribution packages
-4. Update contact tracking
+1. Customize recipient-specific content
+1. Prepare final distribution packages
+1. Update contact tracking
 
 ### 5. Dashboard Updates
 
 1. Update frontend displays as needed
-2. Maintain backend data consistency
-3. Run test suite before deployment
-4. Monitor CI/CD pipeline
+1. Maintain backend data consistency
+1. Run test suite before deployment
+1. Monitor CI/CD pipeline
 
 ## Quality Control
 
@@ -119,4 +120,6 @@ For project-related questions or concerns, refer to the contact information in `
 
 - **Batch 03 Release** — [v0.1.0-batch03](https://github.com/sspedowski/JUSTICE_MASTER/releases/tag/v0.1.0-batch03)
   - Asset: `MasterFile_Batch_03.pdf`
-  - SHA256: `EB8EB43693BA80A36EB40240F1FCE41AE38EC35024B3CAE413AB9435E749A0B2`
+  - SHA256:
+
+    `EB8EB43693BA80A36EB40240F1FCE41AE38EC35024B3CAE413AB9435E749A0B2`
