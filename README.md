@@ -1,5 +1,7 @@
 # Justice_Master
 
+[![CI](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml/badge.svg)](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml)
+
 This is the single source of truth for Stephanie's Justice project (Jace & Josh).
 
 ## Project Structure
