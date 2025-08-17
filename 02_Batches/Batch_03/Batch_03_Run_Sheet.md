@@ -32,9 +32,9 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 **What this does:**
 
 1. Creates/activates `.venv` and installs deps (`pandas`, `openpyxl`, `python-docx`, `reportlab`).
-2. Imports `Top_10_Failures_Marsh_Case_Summary.xlsx` if present; otherwise parses your two DOCX sources.
-3. Appends normalized rows to `99_Master_Index.csv` (locked header preserved).
-4. Builds `02_Batches/Batch_03/MasterFile_Batch_03.pdf` from rows with **Status** set to `✅ Include`.
+1. Imports `Top_10_Failures_Marsh_Case_Summary.xlsx` if present; otherwise parses your two DOCX sources.
+1. Appends normalized rows to `99_Master_Index.csv` (locked header preserved).
+1. Builds `02_Batches/Batch_03/MasterFile_Batch_03.pdf` from rows with **Status** set to `✅ Include`.
 
 ---
 

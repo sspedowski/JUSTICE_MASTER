@@ -9,7 +9,7 @@ Quick setup
 Running the Batch 03 pipeline
 
 1. Place Top‑10 XLSX at repo root as `Top_10_Failures_Marsh_Case_Summary.xlsx` OR place DOCX files in `02_Batches/Batch_03/Top10` and supporting notes in `02_Batches/Batch_03/Notes`.
-2. From repo root run (PowerShell):
+1. From repo root run (PowerShell):
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
