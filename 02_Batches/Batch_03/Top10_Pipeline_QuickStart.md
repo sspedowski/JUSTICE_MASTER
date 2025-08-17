@@ -39,9 +39,11 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 What it does:
 
 1. Creates/activates `.venv`, installs `pandas openpyxl python-docx reportlab`.
-1. If `Top_10_Failures_Marsh_Case_Summary.xlsx` exists → imports it; otherwise parses the two DOCX.
+1. If `Top_10_Failures_Marsh_Case_Summary.xlsx` exists → imports it; otherwise parses the two
+  DOCX.
 1. Appends normalized rows to `99_Master_Index.csv` (keeps your header intact).
-1. Builds `02_Batches/Batch_03/MasterFile_Batch_03.pdf` from rows with **Status** set to `✅ Include`.
+1. Builds `02_Batches/Batch_03/MasterFile_Batch_03.pdf` from rows with **Status** set to
+  `✅ Include`.
 
 Re‑runnable: You can run the wrapper again; it will append/merge and rebuild the PDF. Review the CSV before committing if you re‑ingest the same sources.
 
@@ -58,13 +60,13 @@ python -m pip install --upgrade pip
 pip install pandas openpyxl python-docx reportlab
 ```
 
-1) Import from XLSX (if you have it)
+1. Import from XLSX (if you have it)
 
 ```powershell
 python scripts/import_top10_from_xlsx.py --xlsx .\Top_10_Failures_Marsh_Case_Summary.xlsx --batch 03 --master 99_Master_Index.csv
 ```
 
-3) Extract from DOCX (Excel‑free fallback)
+1. Extract from DOCX (Excel‑free fallback)
 
 ```powershell
 python scripts/extract_top10_from_docx.py --batch 03 --master 99_Master_Index.csv `
@@ -72,7 +74,7 @@ python scripts/extract_top10_from_docx.py --batch 03 --master 99_Master_Index.cs
          "02_Batches/Batch_03/Notes/MASTER TOP 10 FILES GPT5 STYLE CHAT.docx"
 ```
 
-4) Generate the batch PDF
+1. Generate the batch PDF
 
 ```powershell
 python generate_batch_pdf.py --batch 03 --repo . --index 99_Master_Index.csv
@@ -183,11 +185,19 @@ git commit -m "feat(top10): import/extract + build MasterFile_Batch_03"
 
 Troubleshooting
 
-* “No ✅ Include rows for Batch 03” → Set the **Status** column to `✅ Include` for the docs you want in the PDF.
-* “No records parsed” (DOCX) → Ensure each Top‑10 item has simple key/value lines like `Filename:`, `Summary:`, `Status:`. Free text is still appended to **Summary**.
+---
+
+Troubleshooting
+
+* “No ✅ Include rows for Batch 03” → Set the **Status** column to `✅ Include` for the
+  docs you want in the PDF.
+* “No records parsed” (DOCX) → Ensure each Top‑10 item has simple key/value lines like
+  `Filename:`, `Summary:`, `Status:`. Free text is still appended to **Summary**.
 * `python` not found → Install Python 3.10+ and re‑open PowerShell.
-* ReportLab install issues → Re‑run the venv commands in an elevated PowerShell; ensure network access.
-* Duplicates in CSV → Remove by editing the CSV or import only once per source; scripts are append‑only by design.
+* ReportLab install issues → Re‑run the venv commands in an elevated PowerShell; ensure
+  network access.
+* Duplicates in CSV → Remove by editing the CSV or import only once per source; scripts are
+  append‑only by design.
 
 ---
 
