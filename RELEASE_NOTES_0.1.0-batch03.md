@@ -1,4 +1,4 @@
-**Title:** Batch 03 Release
+# Batch 03 Release
 **Tag:** `v0.1.0-batch03`
 **Date:** 2025-08-16
 
