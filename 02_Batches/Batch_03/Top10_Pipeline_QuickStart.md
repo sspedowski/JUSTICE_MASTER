@@ -16,9 +16,11 @@ Assumptions
 * Repo root contains or will contain: `99_Master_Index.csv` (created if missing).
 * Your Top‑10 live at any path. Defaults used below:
 
-  * `02_Batches/Batch_03/Top10/Justice_Master_Top10_AllPhases_EDITABLE.docx`
-  * `02_Batches/Batch_03/Notes/MASTER TOP 10 FILES GPT5 STYLE CHAT.docx`
-  * Optional: `Top_10_Failures_Marsh_Case_Summary.xlsx`
+  * `02_Batches/Batch_03/Top10/Justice_Master_Top10_AllPhases_EDITABLE.docx`\r
+
+ * `02_Batches/Batch_03/Notes/MASTER TOP 10 FILES GPT5 STYLE CHAT.docx`\r
+
+ * Optional: `Top_10_Failures_Marsh_Case_Summary.xlsx`
 
 ---
 
@@ -62,9 +64,11 @@ python scripts/import_top10_from_xlsx.py --xlsx .\Top_10_Failures_Marsh_Case_Sum
 3) Extract from DOCX (Excel‑free fallback)
 
 ```powershell
-python scripts/extract_top10_from_docx.py --batch 03 --master 99_Master_Index.csv `
-  --docx "02_Batches/Batch_03/Top10/Justice_Master_Top10_AllPhases_EDITABLE.docx" `
-         "02_Batches/Batch_03/Notes/MASTER TOP 10 FILES GPT5 STYLE CHAT.docx"
+python scripts/extract_top10_from_docx.py --batch 03 --master 99_Master_Index.csv `\r
+
+ --docx "02_Batches/Batch_03/Top10/Justice_Master_Top10_AllPhases_EDITABLE.docx" `\r
+
+        "02_Batches/Batch_03/Notes/MASTER TOP 10 FILES GPT5 STYLE CHAT.docx"
 ```
 
 4) Generate the batch PDF
@@ -81,8 +85,10 @@ Locked master columns (header)
 
 Use this exact header in CSV/XLSX:
 
-```
 Batch #,Filename,Category,Children (Jace/Josh/Other),Dates / Case #,Summary,Misconduct? (Yes/No),Law Violated (if any),Page / Paragraph,Description of Violation,Status (✅ Include / ❌ Remove),Notes
+```\r
+
+atch #,Filename,Category,Children (Jace/Josh/Other),Dates / Case #,Summary,Misconduct? (Yes/No),Law Violated (if any),Page / Paragraph,Description of Violation,Status (✅ Include / ❌ Remove),Notes
 ```
 
 Defaults enforced: If Children is blank, scripts set it to `Jace, Josh` per Master Rules.
@@ -191,3 +197,4 @@ Customization
 * Change batch: pass `-Batch 02` or `-Batch 04` to the wrapper.
 * Use XLSX as master: switch to `99_Master_Index.xlsx` and adjust the `--index` flag in `generate_batch_pdf.py`.
 * Add sources: edit `top10_pipeline.ps1` to include more DOCX paths.
+

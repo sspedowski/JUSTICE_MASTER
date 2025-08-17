@@ -27,7 +27,7 @@
 
 ## How I tested
 
-* Ran wrapper: `.	op10_pipeline.ps1 -Batch 03`
+* Ran wrapper: `.\top10_pipeline.ps1 -Batch 03`
 * Verified PDF exists and non-zero size: `02_Batches/Batch_03/MasterFile_Batch_03.pdf`
 * Verified tail of `99_Master_Index.csv` shows Batch 03 rows with `✅ Include`.
 

@@ -1,6 +1,6 @@
 """Small helper: scan `02_Batches/Batch_03` Markdown summary files for headings and prefill `99_Master_Index.csv` Summary column when filenames match.
 
-Usage: .venv\Scripts\python.exe scripts\prefill_summaries_from_md.py
+Usage: .venv\\Scripts\\python.exe scripts\\prefill_summaries_from_md.py
 """
 import os
 import re

@@ -1,7 +1,7 @@
 """Import Top-10 rows from a user-specified XLSX into the repo's 99_Master_Index.csv.
 
 Usage:
-  .venv\Scripts\python.exe scripts\import_user_xlsx.py "C:\path\to\file.xlsx" --batch 3
+  .venv\\Scripts\\python.exe scripts\\import_user_xlsx.py "C:\\path\\to\\file.xlsx" --batch 3
 
 Behavior:
 - Backs up 99_Master_Index.csv to 99_Master_Index.csv.pre_import.TIMESTAMP.bak

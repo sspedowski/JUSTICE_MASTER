@@ -1,0 +1,4 @@
+.venv/**
+**/licenses/**
+**/LICENSE.md
+**/*.dist-info/**/licenses/**
