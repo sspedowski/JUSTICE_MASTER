@@ -16,7 +16,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 .\top10_pipeline.ps1 -Batch 03
 ```
 
-3. Verify PDF and CSV:
+1. Verify PDF and CSV:
 
 ```powershell
 Get-Item .\02_Batches\Batch_03\MasterFile_Batch_03.pdf | Format-List Name,Length,LastWriteTime

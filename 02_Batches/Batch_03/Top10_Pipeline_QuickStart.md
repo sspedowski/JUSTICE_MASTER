@@ -44,7 +44,7 @@ Re‑runnable: You can run the wrapper again; it will append/merge and rebuild t
 
 Manual usage (if you want step‑by-step)
 
-1) Create venv + install deps
+1. Create venv + install deps
 
 ```powershell
 python -m venv .venv
@@ -53,7 +53,7 @@ python -m pip install --upgrade pip
 pip install pandas openpyxl python-docx reportlab
 ```
 
-2) Import from XLSX (if you have it)
+1) Import from XLSX (if you have it)
 
 ```powershell
 python scripts/import_top10_from_xlsx.py --xlsx .\Top_10_Failures_Marsh_Case_Summary.xlsx --batch 03 --master 99_Master_Index.csv
