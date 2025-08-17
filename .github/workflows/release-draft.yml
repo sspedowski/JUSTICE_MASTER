@@ -18,7 +18,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Validate tag format (semantic)
+        id: validate
+        shell: bash
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([\-\.][A-Za-z0-9._-]+)?$ ]]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+            echo "Tag $TAG is semantic."
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "Tag $TAG is NOT semantic; skipping release steps."
+          fi
+
       - name: Generate release notes
+        if: steps.validate.outputs.ok == 'true'
         id: notes
         uses: release-drafter/release-drafter@v6
         with:
@@ -27,6 +41,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Collect assets (optional)
+        if: steps.validate.outputs.ok == 'true'
         id: assets
         run: |
           echo "files=" >> $GITHUB_OUTPUT
@@ -44,6 +59,7 @@ jobs:
           fi
 
       - name: Create release
+        if: steps.validate.outputs.ok == 'true'
         uses: softprops/action-gh-release@v2
         with:
           draft: false
