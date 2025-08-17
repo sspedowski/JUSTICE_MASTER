@@ -1,0 +1,22 @@
+name-template: "Release $NEXT_PATCH_VERSION"
+tag-template: "v$NEXT_PATCH_VERSION"
+categories:
+  - title: "🚀 Features"
+    labels: ["feat", "feature"]
+  - title: "🐛 Fixes"
+    labels: ["fix", "bug", "bugfix"]
+  - title: "🧪 Tests"
+    labels: ["test", "tests"]
+  - title: "🧹 Chores"
+    labels: ["chore", "docs", "ci", "refactor"]
+change-template: "- $TITLE (#$NUMBER) by @$AUTHOR"
+no-changes-template: "No changes since last release."
+template: |
+  ## Changes
+  $CHANGES
+
+  ## Assets
+  - MasterFile_Batch_03.pdf (attach via workflow or manually)
+
+  ## Notes
+  See `CHANGELOG.md` for structured details.

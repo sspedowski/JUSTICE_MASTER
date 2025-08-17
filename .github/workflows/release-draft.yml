@@ -25,6 +25,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Collect assets (optional)
+        id: assets
+        run: |
+          echo "files=" >> $GITHUB_OUTPUT
+          for f in \
+            "MasterFile_Batch_03.pdf" \
+            "02_Batches/Batch_03/MasterFile_Batch_03.pdf"
+          do
+            if [ -f "$f" ]; then
+              echo "Found: $f"
+              echo "$f" >> files.txt
+            fi
+          done
+          if [ -f files.txt ]; then
+            echo "files=$(paste -sd',' files.txt)" >> $GITHUB_OUTPUT
+          fi
+
       - name: Create draft release
         uses: softprops/action-gh-release@v2
         with:
@@ -35,10 +52,6 @@ jobs:
             See CHANGELOG.md for details. If missing, auto notes below:
 
             ${{ steps.notes.outputs.body }}
-
-          # Adjust these paths to wherever you output the PDF
-          files: |
-            MasterFile_Batch_03.pdf
-            02_Batches/Batch_03/MasterFile_Batch_03.pdf
+          files: ${{ steps.assets.outputs.files }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

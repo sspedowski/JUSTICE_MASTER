@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml/badge.svg)](https://github.com/sspedowski/JUSTICE_MASTER/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/sspedowski/JUSTICE_MASTER?label=latest%20release)](https://github.com/sspedowski/JUSTICE_MASTER/releases/latest)
 
+[📄 Changelog](CHANGELOG.md) · [Latest Release](https://github.com/sspedowski/JUSTICE_MASTER/releases/latest)
 This is the single source of truth for Stephanie's Justice project (Jace & Josh).
 
 ## Project Structure
