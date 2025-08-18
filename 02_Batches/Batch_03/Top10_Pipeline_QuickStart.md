@@ -37,7 +37,6 @@ One‑command run (recommended)
   **Summary**.
 1. Duplicates in CSV — remove duplicates by editing the CSV or import only once
   per source; scripts are append‑only by design.
-```
 
 What it does:
 
@@ -46,7 +45,8 @@ What it does:
 1. Appends normalized rows to `99_Master_Index.csv` (keeps your header intact).
 1. Builds `02_Batches/Batch_03/MasterFile_Batch_03.pdf` from rows with **Status** set to `✅ Include`.
 
-Re‑runnable: You can run the wrapper again; it will append/merge and rebuild the PDF. Review the CSV before committing if you re‑ingest the same sources.
+Re‑runnable: You can run the wrapper again; it will append/merge and rebuild
+the PDF. Review the CSV before committing if you re‑ingest the same sources.
 
 ---
 
@@ -186,7 +186,8 @@ git commit -m "feat(top10): import/extract + build MasterFile_Batch_03"
 
 Troubleshooting
 
-* “No ✅ Include rows for Batch 03” → Set the **Status** column to `✅ Include` for the docs you want in the PDF.
+* “No ✅ Include rows for Batch 03” → Set the **Status** column to `✅ Include`
+  for the docs you want in the PDF.
 * “No records parsed” (DOCX) → Ensure each Top‑10 item has simple key/value lines
   like `Filename:`, `Summary:`, `Status:`. Free text is still appended to **Summary**.
 * `python` not found → Install Python 3.10+ and re‑open PowerShell.
@@ -211,8 +212,6 @@ Assumptions
   * `02_Batches/Batch_03/Top10/Justice_Master_Top10_AllPhases_EDITABLE.docx`
   * `02_Batches/Batch_03/Notes/MASTER TOP 10 FILES GPT5 STYLE CHAT.docx`
   * Optional: `Top_10_Failures_Marsh_Case_Summary.xlsx`
-
-
 
 Manual usage (if you want step‑by-step)
 
