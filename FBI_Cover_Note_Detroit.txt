@@ -1,0 +1,24 @@
+Subject: Evidence package — potential alteration of official records (Barry County CPS)
+
+Dear Detroit Field Office,
+
+I am submitting an evidence package documenting potential alteration of official records in a Barry County CPS case impacting my sons. The package includes a manifest with SHA-256 checksums and chain-of-custody notes. A secure download link is included; I can also transfer via a method your office prefers (SFTP/AFT/Box).
+
+Highlights:
+• Worker-authored edits/verifications dated Nov 2020 that changed the case history
+• Consolidation of multiple 2020 intakes under an active investigation ID
+• Retrospective medical contact entry (SANE) and a referral chain (CTAC / Battle Creek) later echoed in CPS history
+• Bates-stamped exhibits with page ranges, sworn statement, and manifest
+
+Package details:
+• Secure link: https://1drv.ms/f/c/3f95a286c2fabb4d/Ek27-sKGopUggD9oAAAAAAABhAJxoEGCvv-SUNno17kEgA?e=KizCPc&download=1
+• SHA-256 of EVIDENCE_PACKAGE.zip: 36846AAFD7B6C824C1510E443047D5C0B21AC34EBF7B46C1E087F62DB2186EED
+• Contents: Sworn statement (with exhibit page ranges), exhibits (Bates-stamped), MANIFEST.csv (paths/sizes/hashes), COC.md (chain-of-custody), cover letter
+
+Point of contact:
+Stephanie Spedowski — 616-333-0486 — godspathtojustice@gmail.com
+
+Please confirm receipt and advise on preferred secure transfer/ingestion steps if an alternate method is required.
+
+Thank you,
+Stephanie Spedowski
