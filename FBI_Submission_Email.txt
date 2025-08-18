@@ -1,0 +1,22 @@
+Subject: Evidence package submission — [brief subject]
+
+Hello,
+
+I have prepared an evidence package relevant to a potential investigation. The package contains a MANIFEST.csv and a Chain-of-Custody (COC.md). For secure transfer, please advise your preferred method (SFTP/AFT or secure upload).
+
+Download link (archive):
+https://1drv.ms/f/c/3f95a286c2fabb4d/Ek27-sKGopUggD9oAAAAAAABhAJxoEGCvv-SUNno17kEgA?e=KizCPc&download=1
+
+SHA-256 (EVIDENCE_PACKAGE.zip): <compute-and-insert-sha256-here>
+
+Notes:
+- I can make the package available via SFTP or other secure transfer if preferred.
+- MANIFEST.csv contains per-file SHA-256 hashes and sizes.
+
+Contact:
+[Your name]
+[Phone]
+[Email]
+
+Thank you,
+
