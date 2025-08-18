@@ -29,9 +29,14 @@ Assumptions
 ---
 
 One‑command run (recommended)
-1. "No ✅ Include rows for Batch 03" — set the **Status** column to `✅ Include` for any documents you want included in the generated PDF.
-1. "No records parsed" (DOCX) — ensure each Top‑10 item has simple key/value lines like `Filename:`, `Summary:`, and `Status:`; free text is still appended to **Summary**.
-1. Duplicates in CSV — remove duplicates by editing the CSV or import only once per source; scripts are append‑only by design.
+
+1. "No ✅ Include rows for Batch 03" — set the **Status** column to `✅ Include`
+  for any documents you want included in the generated PDF.
+1. "No records parsed" (DOCX) — ensure each Top‑10 item has simple key/value
+  lines like `Filename:`, `Summary:`, and `Status:`; free text is still appended to
+  **Summary**.
+1. Duplicates in CSV — remove duplicates by editing the CSV or import only once
+  per source; scripts are append‑only by design.
 ```
 
 What it does:
@@ -194,23 +199,6 @@ Customization
 * Change batch: pass `-Batch 02` or `-Batch 04` to the wrapper.
 * Use XLSX as master: switch to `99_Master_Index.xlsx` and adjust the `--index` flag in `generate_batch_pdf.py`.
 * Add sources: edit `top10_pipeline.ps1` to include more DOCX paths.
-# Top‑10 Ingest & PDF Pipeline (Excel‑Free) — v2 QuickStart
-
-Purpose. Take your Top‑10 source files (DOCX preferred, XLSX if available), normalize them into the locked master columns in `99_Master_Index.csv`, and auto‑build `02_Batches/Batch_03/MasterFile_Batch_03.pdf` (✅ rows only). No Excel dependency inside the repo.
-
-
-What you get
-
-* “No ✅ Include rows for Batch 03” → set the **Status** column to `✅ Include` for any
-  documents you want included in the generated PDF.
-* “No records parsed” (DOCX) → ensure each Top‑10 item has simple key/value lines like
-  `Filename:`, `Summary:`, and `Status:`; free text is still appended to **Summary**.
-* Duplicates in CSV → remove duplicates by editing the CSV or import only once per
-  source; scripts are append‑only by design.
-* DOCX → CSV extractor (fallback that works even when Excel isn’t accepted).
-* XLSX → CSV importer (used automatically if the sheet exists).
-* PDF generator from the master index.
-* PowerShell wrapper that sets up a venv, ingests sources, and builds the PDF in one command.
 
 Assumptions
 
