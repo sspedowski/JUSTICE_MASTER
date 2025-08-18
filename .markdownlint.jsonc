@@ -1,0 +1,13 @@
+{
+  // Repo lint rules: allow long lines and some fenced-code/raw-html exceptions used in docs
+  "default": true,
+  "MD013": false, // line length
+  "MD033": false, // raw HTML
+  "MD040": false, // fenced code language
+  "MD041": true
+}
+{
+  "default": true,
+  "MD013": false,
+  "MD033": false
+}

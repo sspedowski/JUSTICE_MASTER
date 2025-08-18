@@ -1,9 +1,11 @@
 # Batch 03 Run Sheet
 
+```bash
 git add 99_Master_Index.csv 02_Batches/Batch_03/MasterFile_Batch_03.pdf
 git commit -m "feat(batch03): import top10 + build MasterFile_Batch_03"
+```
 
-# Batch 03 — One‑Command Run Sheet (Wrapper + PDF)
+## Batch 03 — One‑Command Run Sheet (Wrapper + PDF)
 
 **Purpose.** Ingest your Top‑10 data **without Excel**, update `99_Master_Index.csv`, and build `02_Batches/Batch_03/MasterFile_Batch_03.pdf`. Clean, repeatable, and aligned with the locked MASTER format.
 

@@ -61,15 +61,14 @@ git commit -m "chore: enable Git LFS"
 
 ### 1. Document Batch Processing
 
-1. Create new batch folder in `02_Batches/Batch_##/`
-2. Add original documents to batch folder
-3. For each document:
+- 1. Create new batch folder in `02_Batches/Batch_##/`
+- 1. Add original documents to batch folder
+- 1. For each document:
+- Create summary (MD/HTML format)
+- Complete misconduct analysis table
+- Generate processed output files
 
-  - Create summary (MD/HTML format)
-  - Complete misconduct analysis table
-  - Generate processed output files
-
-4. Update `99_Master_Index.xlsx` with new entries
+1. Update `99_Master_Index.xlsx` with new entries
 
 ### 2. Analysis and Review
 
