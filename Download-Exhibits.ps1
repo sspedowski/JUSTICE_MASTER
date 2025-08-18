@@ -4,11 +4,11 @@ Set-Location downloads
 
 # =====  Paste your PUBLIC links below  =====
 $Bundles = @(
-  @{ Url = "https://www.dropbox.com/scl/fi/1o8m6jb4nxrvolkbdnpyd/zip-ai-1.zip?rlkey=s76d7mkf9g1e07vqucjb8ghy6&st=5iun9q7k&dl=0"; Name = "Exhibits_20250818-0321.zip" }
+  @{ Url = "https://www.dropbox.com/scl/fi/1o8m6jb4nxrvolkbdnpyd/zip-ai-1.zip?rlkey=s76d7mkf9g1e07vqucjb8ghy6&st=5iun9q7k&dl=1"; Name = "Exhibits_20250818-0321.zip" }
 )
 
 $Exhibits = @(
-  @{ Url = "https://www.dropbox.com/scl/fi/1o8m6jb4nxrvolkbdnpyd/zip-ai-1.zip?rlkey=s76d7mkf9g1e07vqucjb8ghy6&st=5iun9q7k&dl=0"; Name = "zip-ai-1.zip" }
+  @{ Url = "https://www.dropbox.com/scl/fi/1o8m6jb4nxrvolkbdnpyd/zip-ai-1.zip?rlkey=s76d7mkf9g1e07vqucjb8ghy6&st=5iun9q7k&dl=1"; Name = "zip-ai-1.zip" }
 )
 # ===========================================
 

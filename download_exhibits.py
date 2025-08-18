@@ -155,7 +155,7 @@ def main():
 
     # 🔗 Replace these placeholders with your direct-file links (not folder links)
     BUNDLE_URLS = [
-    "https://www.dropbox.com/scl/fi/1o8m6jb4nxrvolkbdnpyd/zip-ai-1.zip?rlkey=s76d7mkf9g1e07vqucjb8ghy6&st=5iun9q7k&dl=0",
+    "https://www.dropbox.com/scl/fi/1o8m6jb4nxrvolkbdnpyd/zip-ai-1.zip?rlkey=s76d7mkf9g1e07vqucjb8ghy6&st=5iun9q7k&dl=1",
     ]
 
     urls = args.urls if args.urls else BUNDLE_URLS
