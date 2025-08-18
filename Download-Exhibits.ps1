@@ -23,8 +23,26 @@ $Exhibits = @(
 # ===========================================
 
 function Download-File($Url, $Name) {
-  Write-Host "→ $Name"
-  Invoke-WebRequest -Uri $Url -OutFile $Name -UseBasicParsing
+  if ([string]::IsNullOrWhiteSpace($Url)) { return }
+  $headers = @{
+    "User-Agent" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36"
+    "Accept"     = "*/*"
+    "Referer"    = $Url
+  }
+  try {
+    Write-Host "→ $Name"
+    Invoke-WebRequest -Uri $Url -OutFile $Name -Headers $headers -MaximumRedirection 10 -UseBasicParsing -ErrorAction Stop
+  } catch {
+    Write-Warning "Invoke-WebRequest failed ($($_.Exception.Message)). Trying curl.exe fallback..."
+    try {
+      & curl.exe -L -A "Mozilla/5.0" -o "$Name" "$Url"
+      if ($LASTEXITCODE -ne 0 -or -not (Test-Path "$Name")) {
+        throw "curl failed or file not created"
+      }
+    } catch {
+      throw "Download failed for $Name. OneDrive likely needs a direct FILE link or authenticated cookies. Original error: $($_.Exception.Message)"
+    }
+  }
 }
 
 $Bundles | ForEach-Object { if ($_.Url) { Download-File $_.Url $_.Name } }
