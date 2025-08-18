@@ -1,4 +1,4 @@
-Subject: Evidence package submission — [brief subject]
+﻿Subject: Evidence package submission — [brief subject]
 
 Hello,
 
@@ -7,7 +7,7 @@ I have prepared an evidence package relevant to a potential investigation. The p
 Download link (archive):
 https://1drv.ms/f/c/3f95a286c2fabb4d/Ek27-sKGopUggD9oAAAAAAABhAJxoEGCvv-SUNno17kEgA?e=KizCPc&download=1
 
-SHA-256 (EVIDENCE_PACKAGE.zip): <compute-and-insert-sha256-here>
+SHA-256 (EVIDENCE_PACKAGE.zip): 36846AAFD7B6C824C1510E443047D5C0B21AC34EBF7B46C1E087F62DB2186EED
 
 Notes:
 - I can make the package available via SFTP or other secure transfer if preferred.
@@ -19,4 +19,5 @@ Contact:
 [Email]
 
 Thank you,
+
 
