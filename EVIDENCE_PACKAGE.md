@@ -1,4 +1,4 @@
-# Evidence package: prepare & deliver
+﻿# Evidence package: prepare & deliver
 
 This file lists practical, low-risk steps to prepare a digital evidence package and how to submit it to federal law enforcement (FBI). This is guidance only — consider consulting an attorney for sensitive matters.
 
@@ -12,8 +12,8 @@ This file lists practical, low-risk steps to prepare a digital evidence package 
 ## Create a working folder
 
 1. Make a new folder next to the originals, named clearly (e.g., `EVIDENCE_PACKAGE_YYYYMMDD`).
-2. Copy files (do not move) into the folder. Keep originals unchanged and note their original paths.
-3. If you must extract contents from archives or containers, keep a copy of the original archive as well.
+1. Copy files (do not move) into the folder. Keep originals unchanged and note their original paths.
+1. If you must extract contents from archives or containers, keep a copy of the original archive as well.
 
 ## Manifest (required)
 
@@ -63,7 +63,7 @@ Keep the COC with the package and keep a separate secure log (physical or digita
 ## Packaging
 
 1. Once manifest and checksums are ready, create a compressed archive (ZIP) of the package folder; include `MANIFEST.csv` and `COC.md` at the top-level of the archive.
-2. Sign the archive if you have a digital signing capability (GPG or equivalent). Otherwise, include the SHA-256 checksum of the archive in a separate text file.
+1. Sign the archive if you have a digital signing capability (GPG or equivalent). Otherwise, include the SHA-256 checksum of the archive in a separate text file.
 
 Command examples:
 
@@ -90,14 +90,14 @@ EX-002__Complaint.pdf,142334,abcd1234...,"copied from OneDrive link: https://...
 1. FBI Internet Crime Complaint Center (IC3) / Tip page (non-urgent):
    - <https://tips.fbi.gov/>
 
-2. FBI field office directory (to contact a local office):
+1. FBI field office directory (to contact a local office):
    - <https://www.fbi.gov/contact-us/field-offices>
 
-3. If the matter is urgent or involves immediate danger, call 911 and follow law enforcement instructions.
+1. If the matter is urgent or involves immediate danger, call 911 and follow law enforcement instructions.
 
-4. For large files or secure delivery, contact your local FBI field office by phone (directory above) and ask for guidance on secure transfer (SFTP, AFT, or other channels). Do not publish or share links publicly.
+1. For large files or secure delivery, contact your local FBI field office by phone (directory above) and ask for guidance on secure transfer (SFTP, AFT, or other channels). Do not publish or share links publicly.
 
-5. When using the FBI web tip form, do NOT upload extremely large archives via the form — follow the office guidance for large files.
+1. When using the FBI web tip form, do NOT upload extremely large archives via the form — follow the office guidance for large files.
 
 ## Suggested message / email subject (short)
 
@@ -146,3 +146,4 @@ If you want, I can now:
 - Or create a small `pack_and_hash.ps1` script that produces `MANIFEST.csv`, `COC.md` and the zip archive automatically.
 
 Tell me which of those you want next.
+
