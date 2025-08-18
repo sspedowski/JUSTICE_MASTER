@@ -146,4 +146,3 @@ If you want, I can now:
 - Or create a small `pack_and_hash.ps1` script that produces `MANIFEST.csv`, `COC.md` and the zip archive automatically.
 
 Tell me which of those you want next.
-
