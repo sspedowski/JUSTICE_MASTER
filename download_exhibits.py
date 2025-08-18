@@ -6,8 +6,8 @@ OUT = Path("downloads"); OUT.mkdir(exist_ok=True)
 
 # =====  Paste your PUBLIC links below  =====
 BUNDLES = [
-  ("https://1drv.ms/f/c/3f95a286c2fabb4d/Ek27-sKGopUggD9oAAAAAAABhAJxoEGCvv-SUNno17kEgA?e=TJzQxf", "Bundle_A_EX-001_to_EX-005.zip"),
-  ("https://YOUR_PUBLIC_LINK/Bundle_B_EX-006_to_EX-011.zip", "Bundle_B_EX-006_to_EX-011.zip"),
+  ("https://1drv.ms/f/c/3f95a286c2fabb4d/Ek27-sKGopUggD9oAAAAAAABhAJxoEGCvv-SUNno17kEgA?e=KizCPc&download=1", "Bundle_A_EX-001_to_EX-005.zip"),
+  ("https://1drv.ms/f/c/3f95a286c2fabb4d/Ek27-sKGopUggD9oAAAAAAABhAJxoEGCvv-SUNno17kEgA?e=KizCPc&download=1", "Bundle_B_EX-006_to_EX-011.zip"),
 ]
 
 EXHIBITS = [
