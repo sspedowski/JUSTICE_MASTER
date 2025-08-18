@@ -4,12 +4,14 @@ Purpose. Take your Top‑10 source files (DOCX preferred, XLSX if available). No
 them into the locked master columns in `99_Master_Index.csv`, then auto‑build
 `02_Batches/Batch_03/MasterFile_Batch_03.pdf` (✅ rows only). No Excel dependency inside the repo.
 
-
 What you get
 
-1. “No ✅ Include rows for Batch 03” → set the **Status** column to `✅ Include` for any documents you want included in the generated PDF.
-1. “No records parsed” (DOCX) → ensure each Top‑10 item has simple key/value lines like `Filename:`, `Summary:`, and `Status:`; free text is still appended to **Summary**.
-1. Duplicates in CSV → remove duplicates by editing the CSV or import only once per source; scripts are append‑only by design.
+1. “No ✅ Include rows for Batch 03” → set the **Status** column to `✅ Include` for any
+  documents you want included in the generated PDF.
+1. “No records parsed” (DOCX) → ensure each Top‑10 item has simple key/value lines like
+  `Filename:`, `Summary:`, and `Status:`; free text is still appended to **Summary**.
+1. Duplicates in CSV → remove duplicates by editing the CSV or import only once per
+  source; scripts are append‑only by design.
 1. DOCX → CSV extractor (fallback that works even when Excel isn’t accepted).
 1. XLSX → CSV importer (used automatically if the sheet exists).
 1. PDF generator from the master index.
@@ -219,29 +221,7 @@ Assumptions
   * `02_Batches/Batch_03/Notes/MASTER TOP 10 FILES GPT5 STYLE CHAT.docx`
   * Optional: `Top_10_Failures_Marsh_Case_Summary.xlsx`
 
----
 
-One‑command run (recommended)
-
-From repo root (PowerShell):
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
-.\top10_pipeline.ps1 -Batch 03
-```
-
-What it does:
-
-1. Creates/activates `.venv`, installs `pandas openpyxl python-docx reportlab`.
-1. If `Top_10_Failures_Marsh_Case_Summary.xlsx` exists → imports it; otherwise parses the two
-  DOCX.
-1. Appends normalized rows to `99_Master_Index.csv` (keeps your header intact).
-1. Builds `02_Batches/Batch_03/MasterFile_Batch_03.pdf` from rows with **Status** set to
-  `✅ Include`.
-
-Re‑runnable: You can run the wrapper again; it will append/merge and rebuild the PDF. Review the CSV before committing if you re‑ingest the same sources.
-
----
 
 Manual usage (if you want step‑by-step)
 
@@ -263,9 +243,9 @@ python scripts/import_top10_from_xlsx.py --xlsx .\Top_10_Failures_Marsh_Case_Sum
 1. Extract from DOCX (Excel‑free fallback)
 
 ```powershell
-python scripts/extract_top10_from_docx.py --batch 03 --master 99_Master_Index.csv `
-  --docx "02_Batches/Batch_03/Top10/Justice_Master_Top10_AllPhases_EDITABLE.docx" `
-         "02_Batches/Batch_03/Notes/MASTER TOP 10 FILES GPT5 STYLE CHAT.docx"
+python scripts/extract_top10_from_docx.py --batch 03 --master 99_Master_Index.csv \
+  --docx "02_Batches/Batch_03/Top10/Justice_Master_Top10_AllPhases_EDITABLE.docx" \
+      "02_Batches/Batch_03/Notes/MASTER TOP 10 FILES GPT5 STYLE CHAT.docx"
 ```
 
 1. Generate the batch PDF
