@@ -1,6 +1,7 @@
 import os, sys
 from pathlib import Path
-from urllib.request import urlretrieve
+import shutil
+import time
 
 OUT = Path("downloads"); OUT.mkdir(exist_ok=True)
 
@@ -25,18 +26,102 @@ EXHIBITS = [
 ]
 # ===========================================
 
-def dl(url, name):
+
+def _sniff_html_prefix(b: bytes) -> bool:
+    s = b.lstrip()[:16].lower()
+    if not s:
+        return False
+    if s.startswith(b"<!doctype") or s.startswith(b"<html"):
+        return True
+    if s.startswith(b"{") and b"error" in s:
+        return True
+    return False
+
+
+def download_requests(url: str, name: str, outdir: Path, attempts: int = 4, backoff: float = 1.5):
+    try:
+        import requests
+    except Exception:
+        raise
+
+    headers = {"User-Agent": "Mozilla/5.0"}
+    tmp = outdir / (name + ".part")
+    target = outdir / name
+
+    for attempt in range(1, attempts + 1):
+        try:
+            with requests.Session() as s:
+                r = s.get(url, headers=headers, stream=True, allow_redirects=True, timeout=30)
+                r.raise_for_status()
+                # stream to temp file
+                with open(tmp, "wb") as fh:
+                    first_chunk = b""
+                    for chunk in r.iter_content(chunk_size=8192):
+                        if not chunk:
+                            continue
+                        if len(first_chunk) < 512:
+                            need = 512 - len(first_chunk)
+                            first_chunk += chunk[:need]
+                        fh.write(chunk)
+                # cheap HTML sniff on first bytes
+                if _sniff_html_prefix(first_chunk):
+                    tmp.unlink(missing_ok=True)
+                    raise RuntimeError(f"Downloaded HTML (login/listing) instead of file: {name}. Provide a direct file link.")
+                shutil.move(str(tmp), str(target))
+                return
+        except Exception as exc:
+            if tmp.exists():
+                try:
+                    tmp.unlink()
+                except Exception:
+                    pass
+            if attempt == attempts:
+                raise
+            time.sleep(backoff * attempt)
+
+
+def download_urllib(url: str, name: str, outdir: Path):
+    # fallback if requests unavailable
+    try:
+        from urllib.request import urlretrieve
+    except Exception:
+        raise
+    target = outdir / name
+    urlretrieve(url, target)
+    # minimal sniff
+    with open(target, "rb") as fh:
+        head = fh.read(512)
+        if _sniff_html_prefix(head):
+            target.unlink(missing_ok=True)
+            raise RuntimeError(f"Downloaded HTML (login/listing) instead of file: {name}. Provide a direct file link.")
+
+
+def dl(url: str, name: str):
+    if not url:
+        return
     print("→", name)
-    urlretrieve(url, OUT / name)
+    try:
+        try:
+            download_requests(url, name, OUT)
+        except Exception as e:
+            # if requests not installed or download_requests failed, try urllib fallback once
+            try:
+                download_urllib(url, name, OUT)
+            except Exception:
+                raise
+    except Exception as exc:
+        raise RuntimeError(f"Failed to download {name}: {exc}")
 
-for url, name in BUNDLES:
-    if url:
-        dl(url, name)
-for url, name in EXHIBITS:
-    if url:
-        dl(url, name)
 
-# Evidence marker
-(OUT / 'EVIDENCE.txt').write_text('THIS IS EVIDENCE', encoding='utf-8')
+if __name__ == "__main__":
+    for url, name in BUNDLES:
+        if url:
+            dl(url, name)
+    for url, name in EXHIBITS:
+        if url:
+            dl(url, name)
 
-print("Done. Files are in:", OUT.resolve())
+    # Evidence marker
+    (OUT / 'EVIDENCE.txt').write_text('THIS IS EVIDENCE', encoding='utf-8')
+
+    print("Done. Files are in:", OUT.resolve())
