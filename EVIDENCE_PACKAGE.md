@@ -26,6 +26,7 @@ Example:
 EX-001__CPS_Report.pdf,2534212,3b7f5f1a...,'copied from \\\\server\\share\\reports\\'
 
 Notes:
+
 - Use exact filenames as placed in the package.
 - Write clear notes about source and any processing you applied.
 
@@ -87,10 +88,10 @@ EX-002__Complaint.pdf,142334,abcd1234...,"copied from OneDrive link: https://...
 ## How to deliver to the FBI
 
 1. FBI Internet Crime Complaint Center (IC3) / Tip page (non-urgent):
-   - https://tips.fbi.gov/
+   - <https://tips.fbi.gov/>
 
 2. FBI field office directory (to contact a local office):
-   - https://www.fbi.gov/contact-us/field-offices
+   - <https://www.fbi.gov/contact-us/field-offices>
 
 3. If the matter is urgent or involves immediate danger, call 911 and follow law enforcement instructions.
 
@@ -139,6 +140,7 @@ Adjust the columns/ordering as needed.
 ---
 
 If you want, I can now:
+
 - Insert your OneDrive link into the scripts as you previously asked (second bundle slot),
 - Or prepare a short email body tailored to the local field office (include which office if you want),
 - Or create a small `pack_and_hash.ps1` script that produces `MANIFEST.csv`, `COC.md` and the zip archive automatically.
