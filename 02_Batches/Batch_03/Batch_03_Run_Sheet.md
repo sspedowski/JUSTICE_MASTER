@@ -27,7 +27,8 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
 What this does:
 
-1. Creates/activates `.venv` and installs deps (`pandas`, `openpyxl`, `python-docx`, `reportlab`).
+1. Creates/activates `.venv` and installs deps: `pandas`, `openpyxl`,
+   `python-docx`, `reportlab`.
 1. Imports `Top_10_Failures_Marsh_Case_Summary.xlsx` if present; otherwise parses DOCX sources.
 1. Appends normalized rows to `99_Master_Index.csv` (header preserved).
 1. Builds `02_Batches/Batch_03/MasterFile_Batch_03.pdf` from rows with **Status** set to `✅ Include`.
@@ -36,7 +37,8 @@ What this does:
 
 ## 2) Quick “✅ Include” helper (if PDF says none included)
 
-If the generator prints *"No ✅ Include rows for Batch 03"*, run this to set Include for empty-status rows in batch 03:
+If the generator prints *"No ✅ Include rows for Batch 03"*, run this to set
+Include for empty-status rows in batch 03:
 
 ```powershell
 $csv = "99_Master_Index.csv"

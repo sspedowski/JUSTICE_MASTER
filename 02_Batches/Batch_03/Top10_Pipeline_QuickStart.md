@@ -187,10 +187,13 @@ git commit -m "feat(top10): import/extract + build MasterFile_Batch_03"
 Troubleshooting
 
 * “No ✅ Include rows for Batch 03” → Set the **Status** column to `✅ Include` for the docs you want in the PDF.
-* “No records parsed” (DOCX) → Ensure each Top‑10 item has simple key/value lines like `Filename:`, `Summary:`, `Status:`. Free text is still appended to **Summary**.
+* “No records parsed” (DOCX) → Ensure each Top‑10 item has simple key/value lines
+  like `Filename:`, `Summary:`, `Status:`. Free text is still appended to **Summary**.
 * `python` not found → Install Python 3.10+ and re‑open PowerShell.
 * ReportLab install issues → Re‑run the venv commands in an elevated PowerShell; ensure network access.
-* Duplicates in CSV → Remove by editing the CSV or import only once per source; scripts are append‑only by design.
+
+* Duplicates in CSV → Remove by editing the CSV or import only once per source;
+  scripts are append‑only by design.
 
 ---
 
