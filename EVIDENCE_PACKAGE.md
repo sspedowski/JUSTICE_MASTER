@@ -9,6 +9,8 @@ This file lists practical, low-risk steps to prepare a digital evidence package 
 - Compute cryptographic hashes and keep a chain-of-custody record.
 - Deliver via the FBI tip line or your local FBI field office (links below). If immediate danger is present, call 911.
 
+<!-- markdownlint-disable MD013 MD033 -->
+
 ## Create a working folder
 
 1. Make a new folder next to the originals, named clearly (e.g., `EVIDENCE_PACKAGE_YYYYMMDD`).
