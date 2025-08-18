@@ -46,7 +46,8 @@ function Ensure-DropboxDirect([string]$u) {
   return $u
 }
 
-$function:Normalize-Url = {
+$function:Normalize = $null
+function Normalize-Url {
   param([string]$Url)
   if (-not $Url) { return $Url }
   # Dropbox
@@ -61,8 +62,8 @@ $function:Normalize-Url = {
   return $Url
 }
 
-$Bundles | ForEach-Object { if ($_.Url) { Download-File (& $function:Normalize-Url $_.Url) $_.Name } }
-$Exhibits | ForEach-Object { if ($_.Url) { Download-File (& $function:Normalize-Url $_.Url) $_.Name } }
+$Bundles | ForEach-Object { if ($_.Url) { Download-File (Normalize-Url $_.Url) $_.Name } }
+$Exhibits | ForEach-Object { if ($_.Url) { Download-File (Normalize-Url $_.Url) $_.Name } }
 
 # Evidence marker
 Set-Content -Path EVIDENCE.txt -Value "THIS IS EVIDENCE" -Encoding UTF8
