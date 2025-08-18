@@ -1,0 +1,17 @@
+### What
+- Upgrade Python downloader to requests-based session with retries/backoff.
+- HTML sniff + OneDrive/SharePoint `?download=1` fallback.
+- Creates downloads/EVIDENCE.txt with "THIS IS EVIDENCE".
+- Add requirements.txt (requests>=2.32.0).
+
+### Why
+- Folder/share pages and auth redirects were breaking unattended downloads.
+
+### How to test
+```
+python download_exhibits.py --urls "<direct-file-zip-url>"
+```
+Expect: downloads/<file> saved and downloads/EVIDENCE.txt present.
+
+### Notes
+- PowerShell and Bash variants already hardened; parity retained.
