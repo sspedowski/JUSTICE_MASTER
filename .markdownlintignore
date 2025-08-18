@@ -1,0 +1,9 @@
+# Markdownlint ignore patterns
+.venv/**
+venv/**
+**/.venv/**
+**/venv/**
+**/*.dist-info/**
+**/licenses/**
+**/LICENSE.md
+.markdownlintignore
