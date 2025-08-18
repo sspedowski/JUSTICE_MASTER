@@ -1,127 +1,192 @@
-import os, sys
-from pathlib import Path
-import shutil
+#!/usr/bin/env python3
+"""
+download_exhibits.py
+- Robust downloader with retries, HTML sniffing, and OneDrive direct-download retry.
+- Creates ./downloads and writes EVIDENCE.txt with "THIS IS EVIDENCE".
+"""
+
+import argparse
+import os
+import re
+import sys
 import time
+from pathlib import Path
+from urllib.parse import urlparse, urlencode, parse_qsl, urlunparse
 
-OUT = Path("downloads"); OUT.mkdir(exist_ok=True)
+import requests
+from urllib3.util.retry import Retry
+from requests.adapters import HTTPAdapter
 
-# =====  Paste your PUBLIC links below  =====
-BUNDLES = [
-  ("https://1drv.ms/f/c/3f95a286c2fabb4d/Ek27-sKGopUggD9oAAAAAAABhAJxoEGCvv-SUNno17kEgA?e=KizCPc&download=1", "Bundle_A_EX-001_to_EX-005.zip"),
-  ("https://1drv.ms/f/c/3f95a286c2fabb4d/Ek27-sKGopUggD9oAAAAAAABhAJxoEGCvv-SUNno17kEgA?e=KizCPc&download=1", "Bundle_B_EX-006_to_EX-011.zip"),
-]
+DEFAULT_UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+)
 
-EXHIBITS = [
-  ("https://YOUR_PUBLIC_LINK/EX-001__CPS_Investigation_Report_5.23.20__BATES.pdf", "EX-001__CPS Investigation Report 5.23.20__BATES.pdf"),
-  ("https://YOUR_PUBLIC_LINK/EX-002__CPS_Investigation_Report_9.5.19__BATES.pdf", "EX-002__CPS Investigation Report 9.5.19__BATES.pdf"),
-  # EX-003 skipped (docx)
-  ("https://YOUR_PUBLIC_LINK/EX-004__CPS_Complaint_12.30.19__BATES.pdf", "EX-004__CPS Complaint 12.30.19__BATES.pdf"),
-  ("https://YOUR_PUBLIC_LINK/EX-005__CPS_Complaint_6.10.20__BATES.pdf", "EX-005__CPS Complaint 6.10.20__BATES.pdf"),
-  ("https://YOUR_PUBLIC_LINK/EX-006__CPS_Complaint_6.26.20__BATES.pdf", "EX-006__CPS Complaint 6.26.20__BATES.pdf"),
-  ("https://YOUR_PUBLIC_LINK/EX-007__CPS_Complaint_7.12.20__BATES.pdf", "EX-007__CPS Complaint 7.12.20__BATES.pdf"),
-  ("https://YOUR_PUBLIC_LINK/EX-008__CPS_Complaint_7.23.20__BATES.pdf", "EX-008__CPS Complaint 7.23.20__BATES.pdf"),
-  ("https://YOUR_PUBLIC_LINK/EX-009__CPS_Complaint_8.12.20__BATES.pdf", "EX-009__CPS Complaint 8.12.20__BATES.pdf"),
-  ("https://YOUR_PUBLIC_LINK/EX-010__CPS_Complaint_9.9.20__BATES.pdf", "EX-010__CPS Complaint 9.9.20__BATES.pdf"),
-  ("https://YOUR_PUBLIC_LINK/EX-011__Battle_Creek_Counseling_Psychological_Eval_8.31.20__BATES.pdf", "EX-011__Battle Creek Counseling Psychological Eval 8.31.20__BATES.pdf"),
-]
-# ===========================================
+# 🔁 configure a retrying session
+def make_session():
+    sess = requests.Session()
+    retries = Retry(
+        total=5,
+        connect=5,
+        read=5,
+        backoff_factor=0.8,
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods=frozenset(["GET", "HEAD"]),
+        raise_on_status=False,
+    )
+    adapter = HTTPAdapter(max_retries=retries, pool_connections=10, pool_maxsize=10)
+    sess.mount("http://", adapter)
+    sess.mount("https://", adapter)
+    sess.headers.update({"User-Agent": DEFAULT_UA})
+    return sess
 
 
-def _sniff_html_prefix(b: bytes) -> bool:
-    s = b.lstrip()[:16].lower()
-    if not s:
-        return False
-    if s.startswith(b"<!doctype") or s.startswith(b"<html"):
+def ensure_download_dir(path: Path) -> Path:
+    path.mkdir(parents=True, exist_ok=True)
+    # Evidence marker
+    (path / "EVIDENCE.txt").write_text("THIS IS EVIDENCE\n", encoding="utf-8")
+    return path
+
+
+def is_probably_html(content_type: str, first_bytes: bytes) -> bool:
+    ct = (content_type or "").lower()
+    if "text/html" in ct:
         return True
-    if s.startswith(b"{") and b"error" in s:
-        return True
-    return False
+    sniff = (first_bytes or b"")[:512].lower()
+    return b"<html" in sniff or b"<!doctype html" in sniff
 
 
-def download_requests(url: str, name: str, outdir: Path, attempts: int = 4, backoff: float = 1.5):
+def filename_from_cd(cd: str) -> str | None:
+    # content-disposition: attachment; filename="foo.zip"
+    if not cd:
+        return None
+    m = re.search(r'filename\*?=(?:UTF-8\'\')?"?([^\";]+)"?', cd, flags=re.I)
+    if m:
+        return os.path.basename(m.group(1))
+    return None
+
+
+def safe_name_from_url(url: str) -> str:
+    parsed = urlparse(url)
+    base = os.path.basename(parsed.path) or "download"
+    base = base.split("?")[0]  # strip weird suffixes
+    return re.sub(r"[^\w.\-]", "_", base)
+
+
+def maybe_add_onedrive_download(url: str) -> str:
+    host = urlparse(url).netloc.lower()
+    if any(h in host for h in ("onedrive.live.com", "1drv.ms", "sharepoint.com")):
+        p = urlparse(url)
+        q = dict(parse_qsl(p.query, keep_blank_values=True))
+        if "download" not in q:
+            q["download"] = "1"
+            p = p._replace(query=urlencode(q, doseq=True))
+            return urlunparse(p)
+    return url
+
+
+def try_download(sess: requests.Session, url: str, outdir: Path) -> Path:
+    # HEAD first (best-effort)
     try:
-        import requests
-    except Exception:
-        raise
+        h = sess.head(url, allow_redirects=True, timeout=20)
+        h.raise_for_status()
+    except requests.RequestException:
+        # Non-fatal; proceed with GET
+        pass
 
-    headers = {"User-Agent": "Mozilla/5.0"}
-    tmp = outdir / (name + ".part")
-    target = outdir / name
-
-    for attempt in range(1, attempts + 1):
-        try:
-            with requests.Session() as s:
-                r = s.get(url, headers=headers, stream=True, allow_redirects=True, timeout=30)
-                r.raise_for_status()
-                # stream to temp file
-                with open(tmp, "wb") as fh:
-                    first_chunk = b""
-                    for chunk in r.iter_content(chunk_size=8192):
-                        if not chunk:
-                            continue
-                        if len(first_chunk) < 512:
-                            need = 512 - len(first_chunk)
-                            first_chunk += chunk[:need]
-                        fh.write(chunk)
-                # cheap HTML sniff on first bytes
-                if _sniff_html_prefix(first_chunk):
-                    tmp.unlink(missing_ok=True)
-                    raise RuntimeError(f"Downloaded HTML (login/listing) instead of file: {name}. Provide a direct file link.")
-                shutil.move(str(tmp), str(target))
-                return
-        except Exception as exc:
-            if tmp.exists():
-                try:
-                    tmp.unlink()
-                except Exception:
-                    pass
-            if attempt == attempts:
-                raise
-            time.sleep(backoff * attempt)
-
-
-def download_urllib(url: str, name: str, outdir: Path):
-    # fallback if requests unavailable
+    # First GET
+    r = sess.get(url, stream=True, allow_redirects=True, timeout=60)
+    ct = r.headers.get("Content-Type", "")
+    # Peek a bit to sniff
     try:
-        from urllib.request import urlretrieve
-    except Exception:
-        raise
-    target = outdir / name
-    urlretrieve(url, target)
-    # minimal sniff
-    with open(target, "rb") as fh:
-        head = fh.read(512)
-        if _sniff_html_prefix(head):
-            target.unlink(missing_ok=True)
-            raise RuntimeError(f"Downloaded HTML (login/listing) instead of file: {name}. Provide a direct file link.")
+        first = next(r.iter_content(chunk_size=1024)) or b""
+    except StopIteration:
+        first = b""
 
-
-def dl(url: str, name: str):
-    if not url:
-        return
-    print("→", name)
-    try:
-        try:
-            download_requests(url, name, OUT)
-        except Exception as e:
-            # if requests not installed or download_requests failed, try urllib fallback once
+    if is_probably_html(ct, first):
+        # OneDrive/SharePoint often needs ?download=1
+        alt = maybe_add_onedrive_download(r.url)
+        if alt != r.url:
+            r.close()
+            r = sess.get(alt, stream=True, allow_redirects=True, timeout=60)
+            ct = r.headers.get("Content-Type", "")
             try:
-                download_urllib(url, name, OUT)
-            except Exception:
-                raise
-    except Exception as exc:
-        raise RuntimeError(f"Failed to download {name}: {exc}")
+                first = next(r.iter_content(chunk_size=1024)) or b""
+            except StopIteration:
+                first = b""
+
+    if is_probably_html(ct, first):
+        r.close()
+        raise RuntimeError(
+            "Server returned HTML (likely a folder/share page or login). "
+            "Please replace with a DIRECT FILE link."
+        )
+
+    # Determine filename
+    cd = r.headers.get("Content-Disposition", "")
+    name = filename_from_cd(cd) or safe_name_from_url(r.url)
+    # Fallback extension by content-type
+    if not os.path.splitext(name)[1]:
+        if "zip" in ct:
+            name += ".zip"
+        elif "pdf" in ct:
+            name += ".pdf"
+
+    outpath = outdir / name
+    with open(outpath, "wb") as f:
+        # Write the peeked bytes (if any) then the rest
+        if first:
+            f.write(first)
+        for chunk in r.iter_content(chunk_size=1024 * 1024):
+            if chunk:
+                f.write(chunk)
+    r.close()
+    return outpath
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Robust exhibit downloader")
+    parser.add_argument(
+        "--urls",
+        nargs="*",
+        help="One or more direct-file URLs to download. If omitted, uses the hard-coded bundle list.",
+    )
+    args = parser.parse_args()
+
+    # 🔗 Replace these placeholders with your direct-file links (not folder links)
+    BUNDLE_URLS = [
+        # "https://onedrive.live.com/...?download=1",
+        # "https://your-other-direct-file-link.zip",
+    ]
+
+    urls = args.urls if args.urls else BUNDLE_URLS
+    if not urls:
+        print("No URLs provided. Use --urls or set BUNDLE_URLS.", file=sys.stderr)
+        sys.exit(2)
+
+    outdir = ensure_download_dir(Path("downloads"))
+    sess = make_session()
+
+    failures = []
+    for i, url in enumerate(urls, 1):
+        print(f"[{i}/{len(urls)}] Downloading: {url}")
+        try:
+            path = try_download(sess, url, outdir)
+            size_mb = path.stat().st_size / (1024 * 1024)
+            print(f"  -> saved to {path} ({size_mb:.2f} MB)")
+        except Exception as e:
+            print(f"  !! ERROR: {e}", file=sys.stderr)
+            failures.append((url, str(e)))
+        time.sleep(0.2)
+
+    if failures:
+        print("\nSome downloads failed:")
+        for u, err in failures:
+            print(f" - {u}\n   {err}")
+        sys.exit(1)
+    else:
+        print("\nAll downloads completed successfully.")
 
 
 if __name__ == "__main__":
-    for url, name in BUNDLES:
-        if url:
-            dl(url, name)
-    for url, name in EXHIBITS:
-        if url:
-            dl(url, name)
-
-    # Evidence marker
-    (OUT / 'EVIDENCE.txt').write_text('THIS IS EVIDENCE', encoding='utf-8')
-
-    print("Done. Files are in:", OUT.resolve())
+    main()
