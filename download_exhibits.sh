@@ -16,6 +16,14 @@ cd downloads
 _download() {
   local url="$1"; local name="$2"
   [[ -z "$url" ]] && return 0
+  # Auto-convert Dropbox preview links (dl=0) to direct-download dl=1
+  if echo "$url" | grep -qi "dropbox.com"; then
+    if echo "$url" | grep -q "[?&]dl=0"; then
+      url=$(echo "$url" | sed -E 's/([?&])dl=0/\1dl=1/')
+    elif ! echo "$url" | grep -q "[?&]dl="; then
+      url="$url&dl=1"
+    fi
+  fi
   echo "→ $name"
   curl -L --fail --retry 5 --retry-delay 2 --retry-connrefused \
        --connect-timeout 15 --max-time 0 \

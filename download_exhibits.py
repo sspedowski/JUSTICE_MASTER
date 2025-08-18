@@ -85,6 +85,19 @@ def maybe_add_onedrive_download(url: str) -> str:
     return url
 
 
+def maybe_force_dropbox_dl(url: str) -> str:
+    """Dropbox preview links often use dl=0; convert to dl=1 for direct downloads."""
+    parsed = urlparse(url)
+    host = parsed.netloc.lower()
+    if 'dropbox.com' in host:
+        q = dict(parse_qsl(parsed.query, keep_blank_values=True))
+        if q.get('dl') == '0' or 'dl' not in q:
+            q['dl'] = '1'
+            parsed = parsed._replace(query=urlencode(q, doseq=True))
+            return urlunparse(parsed)
+    return url
+
+
 def try_download(sess: requests.Session, url: str, outdir: Path) -> Path:
     # HEAD first (best-effort)
     try:

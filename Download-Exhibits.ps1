@@ -35,8 +35,19 @@ function Download-File($Url, $Name) {
   }
 }
 
-$Bundles | ForEach-Object { if ($_.Url) { Download-File $_.Url $_.Name } }
-$Exhibits | ForEach-Object { if ($_.Url) { Download-File $_.Url $_.Name } }
+$PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
+
+function Ensure-DropboxDirect([string]$u) {
+  if (-not $u) { return $u }
+  if ($u -match 'dropbox.com') {
+    if ($u -match '[\?&]dl=0') { return ($u -replace '([\?&])dl=0', '${1}dl=1') }
+    if ($u -notmatch '[\?&]dl=') { return "$u&dl=1" }
+  }
+  return $u
+}
+
+$Bundles | ForEach-Object { if ($_.Url) { Download-File (Ensure-DropboxDirect $_.Url) $_.Name } }
+$Exhibits | ForEach-Object { if ($_.Url) { Download-File (Ensure-DropboxDirect $_.Url) $_.Name } }
 
 # Evidence marker
 Set-Content -Path EVIDENCE.txt -Value "THIS IS EVIDENCE" -Encoding UTF8
