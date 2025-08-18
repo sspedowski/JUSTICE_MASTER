@@ -4,7 +4,7 @@ Set-Location downloads
 
 # =====  Paste your PUBLIC links below  =====
 $Bundles = @(
-  @{ Url = "https://YOUR_PUBLIC_LINK/Bundle_A_EX-001_to_EX-005.zip"; Name = "Bundle_A_EX-001_to_EX-005.zip" },
+  @{ Url = "https://1drv.ms/f/c/3f95a286c2fabb4d/Ek27-sKGopUggD9oAAAAAAABhAJxoEGCvv-SUNno17kEgA?e=TJzQxf"; Name = "Bundle_A_EX-001_to_EX-005.zip" },
   @{ Url = "https://YOUR_PUBLIC_LINK/Bundle_B_EX-006_to_EX-011.zip"; Name = "Bundle_B_EX-006_to_EX-011.zip" }
 )
 

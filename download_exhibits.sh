@@ -4,7 +4,7 @@ set -euo pipefail
 # =====  Paste your PUBLIC links below  =====
 # Two bundle ZIPs (optional if you prefer individual PDFs)
 BUNDLE_URLS=(
-  "https://YOUR_PUBLIC_LINK/Bundle_A_EX-001_to_EX-005.zip|Bundle_A_EX-001_to_EX-005.zip"
+  "https://1drv.ms/f/c/3f95a286c2fabb4d/Ek27-sKGopUggD9oAAAAAAABhAJxoEGCvv-SUNno17kEgA?e=TJzQxf|Bundle_A_EX-001_to_EX-005.zip"
   "https://YOUR_PUBLIC_LINK/Bundle_B_EX-006_to_EX-011.zip|Bundle_B_EX-006_to_EX-011.zip"
 )
 
