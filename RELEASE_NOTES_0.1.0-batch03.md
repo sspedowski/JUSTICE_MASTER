@@ -66,3 +66,5 @@
 
 * If the PDF exceeds GitHub asset limits (≈2 GB), store it via Git LFS or external storage and link here.
 * Next up: expand extractor unit tests for odd PDFs (scanned/OCR, malformed outlines).
+
+

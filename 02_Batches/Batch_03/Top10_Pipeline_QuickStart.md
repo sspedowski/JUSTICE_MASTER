@@ -370,3 +370,5 @@ Customization
 * Change batch: pass `-Batch 02` or `-Batch 04` to the wrapper.
 * Use XLSX as master: switch to `99_Master_Index.xlsx` and adjust the `--index` flag in `generate_batch_pdf.py`.
 * Add sources: edit `top10_pipeline.ps1` to include more DOCX paths.
+
+

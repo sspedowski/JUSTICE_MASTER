@@ -40,3 +40,5 @@ Troubleshooting
 files under the Batch Top10 folder.
 1. If the PDF is empty, check that Batch 03 rows have `✅ Include` in the status column.
 1. For parsing edge cases, open an issue and attach a minimal sample DOCX.
+
+
